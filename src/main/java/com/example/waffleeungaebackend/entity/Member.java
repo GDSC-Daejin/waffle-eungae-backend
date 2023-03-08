@@ -2,10 +2,7 @@ package com.example.waffleeungaebackend.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -20,12 +17,32 @@ public class Member {
     // 유저 아이디
     private Long memberId;
 
+    @Column
+    // 유저 이름
+    private String name;
+
+    @Column
     // 유저 이메일
     private String email;
 
-    // 유저 비밀번호
-    private String password;
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Role role;
 
-    // 유저 이름
-    private String name;
+    @Builder
+    public Member(String name, String email, Role role) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
+
+    public Member update(String name ) {
+        this.name = name;
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
+
 }

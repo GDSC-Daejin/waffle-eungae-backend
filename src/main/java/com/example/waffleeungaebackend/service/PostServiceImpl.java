@@ -12,6 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService{
@@ -53,5 +58,12 @@ public class PostServiceImpl implements PostService{
     public Page<PostDto> findPostList(Pageable pageable) {
         Page<Post> page = postRepository.findAll(pageable);
         return page.map(Post::toDto);
+    }
+
+    @Override
+    public List<PostDto> findAllDesc() {
+        return postRepository.findAllDesc().stream()
+            .map(PostDto::new)
+            .collect(Collectors.toList());
     }
 }

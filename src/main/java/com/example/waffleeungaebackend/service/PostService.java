@@ -18,4 +18,8 @@ public interface PostService {
     Post updateById(Long id, PostPatchRequestDto postPatchRequestDto);
 
     Page<PostDto> findPostList(Pageable pageable);
+
+
+    List<PostDto> findAllDesc();
+
 }
